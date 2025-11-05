@@ -16,7 +16,6 @@
       --card:#ffffff;
       --accent:#0b69ff;
       --muted:#6b7280;
-      --glass: rgba(255,255,255,0.06);
       --container:1100px;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
@@ -60,7 +59,6 @@
     .footer{margin-top:38px;padding:18px;border-radius:12px;background:transparent;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
     .small{font-size:0.92rem;color:var(--muted)}
     .links a{margin-left:12px;color:var(--muted);text-decoration:none;font-weight:600}
-    /* responsive */
     @media (max-width:980px){
       .hero{grid-template-columns:1fr}
       .features{grid-template-columns:repeat(2,1fr)}
@@ -98,8 +96,11 @@
         <p class="lead">BondhuGo helps you connect with friends and communities that share your passions. Lightweight, private-first, and built with care.</p>
 
         <div class="cta-row" style="margin-bottom:18px">
-          <!-- Replace href="#" with your real links -->
-          <a class="btn btn-primary" href="#" aria-label="Download APK">
+          <!-- ✅ Direct Download Link Added -->
+          <a class="btn btn-primary" 
+             href="https://github.com/RealShibSankarSarkar/bondhugo/releases/download/v1.0.0/app-release.apk"
+             download
+             aria-label="Download APK">
             ⤓ Download APK
           </a>
           <a class="btn btn-ghost" href="#" aria-label="Open on Play Store">
@@ -191,7 +192,7 @@
         <p class="small" style="margin:0">Available on</p>
         <div style="margin-top:8px;display:flex;gap:8px;justify-content:flex-end">
           <a class="btn btn-ghost" href="#" aria-label="Play Store link">Play Store</a>
-          <a class="btn btn-ghost" href="#" aria-label="App Gallery link">APK</a>
+          <a class="btn btn-ghost" href="https://github.com/RealShibSankarSarkar/bondhugo/releases/download/v1.0.0/app-release.apk" download aria-label="App Gallery link">APK</a>
         </div>
       </div>
     </section>
@@ -204,14 +205,5 @@
       </div>
     </footer>
   </div>
-
-  <!-- Optional: small JS for future interactivity -->
-  <script>
-    // placeholder: you can add analytics, theme toggle, or install prompt here
-    // Example: prevent default on demo links
-    document.querySelectorAll('a[href="#"]').forEach(a=>{
-      a.addEventListener('click', e=>{ e.preventDefault(); alert('Link placeholder — replace with your real URL.'); });
-    });
-  </script>
 </body>
 </html>
