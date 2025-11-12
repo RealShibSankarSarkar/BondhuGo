@@ -20,7 +20,6 @@
       font-family: "Inter", "Segoe UI", Roboto, system-ui;
     }
 
-    /* Smooth gradient animated background */
     body {
       margin: 0;
       background: linear-gradient(-45deg, #e0e7ff, #f9fafb, #c7d2fe, #dbeafe);
@@ -38,7 +37,6 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* Header */
     header {
       position: sticky;
       top: 0;
@@ -78,7 +76,6 @@
 
     nav a:hover { color: var(--accent); }
 
-    /* Hero Section */
     .hero {
       display: grid;
       grid-template-columns: 1fr 420px;
@@ -140,7 +137,6 @@
       color: var(--text);
     }
 
-    /* Glass card */
     .card {
       background: var(--card);
       backdrop-filter: blur(var(--blur));
@@ -152,7 +148,6 @@
 
     .card:hover { transform: scale(1.02); }
 
-    /* Screenshots carousel */
     .screens {
       display: flex;
       gap: 16px;
@@ -174,11 +169,11 @@
 
     .screens img:hover { transform: scale(1.05); }
 
-    /* QR Section */
     .qr {
       text-align: center;
       margin: 60px 0;
     }
+
     .qr img {
       width: 140px;
       height: 140px;
@@ -186,7 +181,6 @@
       box-shadow: 0 6px 18px rgba(0,0,0,0.1);
     }
 
-    /* Footer */
     footer {
       background: rgba(255,255,255,0.6);
       backdrop-filter: blur(var(--blur));
@@ -222,6 +216,7 @@
     <a href="#features">Features</a>
     <a href="#screens">Screens</a>
     <a href="#contact">Contact</a>
+    <a href="https://realshibsankarsarkar.github.io/bondhugo-privacy-policy/" target="_blank">Privacy</a>
   </nav>
 </header>
 
@@ -261,6 +256,7 @@
 <footer>
   <div>
     © BondhuGo — All rights reserved. <span style="margin-left:8px;">Beta Version</span>
+    <a href="https://realshibsankarsarkar.github.io/bondhugo-privacy-policy/" target="_blank">Privacy Policy</a>
   </div>
   <div>
     <a href="https://indusapp.store/pu5du5h7">
@@ -276,7 +272,6 @@
 </footer>
 
 <script>
-  // Simple fade-in animation on scroll
   const revealElements = document.querySelectorAll('.card, .qr');
   const revealOnScroll = () => {
     const triggerBottom = window.innerHeight * 0.85;
