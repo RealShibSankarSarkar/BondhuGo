@@ -1,234 +1,296 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BondhuGo – Apps on Indus & Google Play</title>
-  <meta name="description" content="BondhuGo — Connect with real friends and communities. A human-first social app for meaningful connections." />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BondhuGo — App details</title>
+  <meta name="description" content="BondhuGo — Connect with friends and communities. Play Store style landing page." />
   <meta name="theme-color" content="#0b69ff" />
-  <link rel="icon" href="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/logo.png">
 
   <style>
-    :root {
-      --accent: #0b69ff;
-      --bg: #fafafa;
-      --text: #111827;
+    /* ---------- THEME COLORS ---------- */
+    :root{
+      --accent: #0b69ff; /* primary (blue) */
+      --bg: #fafbfd;
+      --card: #ffffff;
       --muted: #6b7280;
-      --radius: 14px;
-      --shadow: 0 2px 8px rgba(0,0,0,0.08);
-      font-family: "Google Sans", "Inter", "Roboto", system-ui, sans-serif;
+      --text: #0f172a;
+      --glass: rgba(255,255,255,0.7);
+      --radius: 16px;
+      --shadow-sm: 0 6px 18px rgba(16,24,40,0.06);
+      --shadow-lg: 0 12px 40px rgba(2,6,23,0.14);
+      --maxw: 980px;
+      font-family: "Google Sans", "Inter", "Roboto", system-ui, -apple-system, sans-serif;
     }
 
-    body {
-      margin: 0;
+    /* Dark mode */
+    @media (prefers-color-scheme: dark) {
+      :root{
+        --bg: linear-gradient(180deg,#071028,#021223);
+        --card: rgba(10,14,20,0.55);
+        --glass: rgba(255,255,255,0.03);
+        --text: #e6eef9;
+        --muted: #9aa6bf;
+        --shadow-sm: 0 6px 24px rgba(2,6,23,0.6);
+        --shadow-lg: 0 18px 48px rgba(0,0,0,0.6);
+      }
+      body { background: var(--bg); color: var(--text); }
+    }
+
+    html,body{height:100%;margin:0;padding:0;}
+    body{
       background: var(--bg);
-      color: var(--text);
-      -webkit-font-smoothing: antialiased;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      color:var(--text);
+      display:flex;
+      justify-content:center;
+      padding:20px;
     }
 
-    header {
-      display: flex;
-      align-items: center;
-      padding: 12px 16px;
-      background: white;
-      border-bottom: 1px solid #e5e7eb;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+    .page {
+      width:100%;
+      max-width:var(--maxw);
     }
 
-    header img {
-      width: 64px;
-      height: 64px;
-      border-radius: 16px;
-      margin-right: 12px;
-      box-shadow: var(--shadow);
+    header.app-header{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      padding:14px 18px;
+      background:var(--card);
+      border-radius:12px;
+      box-shadow:var(--shadow-sm);
+      position:sticky;
+      top:12px;
+      z-index:40;
+      backdrop-filter: blur(8px);
+    }
+    .app-icon{
+      width:72px;height:72px;border-radius:16px;overflow:hidden;flex:0 0 72px;
+      box-shadow:var(--shadow-lg);
+    }
+    .app-icon img{width:100%;height:100%;object-fit:cover;display:block;}
+
+    .meta {
+      flex:1;
+      min-width:0;
+    }
+    .app-title{font-size:1.25rem;font-weight:700;margin:0;letter-spacing:0.1px}
+    .app-sub{margin-top:6px;color:var(--muted);font-size:0.92rem}
+    .rating-row{display:flex;align-items:center;gap:8px;margin-top:8px}
+    .stars{color:var(--accent);font-weight:700;letter-spacing:0.6px}
+    .install-col{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+    .install-btn{
+      background:linear-gradient(180deg,var(--accent), #0680ff);
+      color:white;padding:10px 16px;border-radius:12px;border:none;font-weight:700;
+      cursor:pointer;box-shadow:0 8px 24px rgba(11,105,255,0.28);
+    }
+    .install-btn:active{transform:translateY(1px);}
+
+    /* short meta row (category + size + installs style) */
+    .micro{
+      display:flex;gap:12px;color:var(--muted);font-size:0.88rem;margin-top:6px;
     }
 
-    .app-meta {
-      flex: 1;
+    /* screenshots carousel */
+    .carousel-wrap{
+      margin-top:18px;
+      background:linear-gradient(180deg,var(--card), rgba(255,255,255,0.95));
+      border-radius:20px;padding:16px;border:1px solid rgba(0,0,0,0.03);
+      box-shadow:var(--shadow-sm);
+      overflow:hidden;
+    }
+    .carousel{
+      display:flex;gap:14px;overflow-x:auto;padding:6px 6px 14px 6px;scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+    }
+    .carousel img{
+      height:460px;border-radius:22px;flex-shrink:0;scroll-snap-align:start;object-fit:cover;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.08);transition:transform .22s ease;
+      border: 1px solid rgba(0,0,0,0.03);
+    }
+    .carousel img:active,.carousel img:hover{ transform:scale(1.02); }
+
+    /* sections */
+    .sections{margin-top:18px;display:grid;gap:16px}
+    section.card{
+      background:var(--card);padding:18px;border-radius:14px;box-shadow:var(--shadow-sm);
+      border:1px solid rgba(0,0,0,0.03);
+    }
+    h2{margin:0 0 8px 0;font-size:1.05rem}
+    p{margin:0;color:var(--muted);line-height:1.6}
+
+    details{background:transparent;border-radius:10px;padding:10px}
+    details summary{font-weight:700;cursor:pointer;outline:none}
+    details p{margin-top:8px;color:var(--muted)}
+
+    /* horizontal badge + qr row */
+    .badge-qr{
+      display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:10px;
+    }
+    .badge-qr img.badge{
+      height:56px;border-radius:10px;box-shadow:0 8px 30px rgba(2,6,23,0.08);background:#000;padding:6px;
+    }
+    .badge-qr img.qr{width:140px;height:140px;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.06);background:white;padding:8px}
+
+    /* footer */
+    footer{
+      margin-top:18px;text-align:center;color:var(--muted);font-size:0.92rem;padding:18px;
     }
 
-    .app-meta h1 {
-      font-size: 1.3rem;
-      margin: 0;
-      font-weight: 700;
+    /* responsiveness */
+    @media (max-width:880px){
+      .carousel img{height:360px}
+      .app-header{padding:12px}
+    }
+    @media (max-width:520px){
+      .carousel img{height:300px}
+      .app-icon{width:56px;height:56px}
+      .install-col{align-items:flex-end}
+      header.app-header{gap:12px;padding:12px}
     }
 
-    .app-meta p {
-      margin: 2px 0;
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .install-btn {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 4px 14px rgba(11,105,255,0.25);
-    }
-
-    .install-btn:hover { opacity: 0.9; }
-
-    .screenshots {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      gap: 10px;
-      padding: 16px;
-      background: #fff;
-      border-bottom: 1px solid #eee;
-    }
-
-    .screenshots img {
-      height: 480px;
-      border-radius: 20px;
-      flex-shrink: 0;
-      scroll-snap-align: start;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      transition: transform .25s ease;
-    }
-
-    .screenshots img:hover { transform: scale(1.03); }
-
-    section {
-      background: white;
-      margin-top: 10px;
-      padding: 16px;
-      box-shadow: var(--shadow);
-    }
-
-    section h2 {
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-    }
-
-    section p {
-      font-size: 0.95rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    details {
-      background: #f9fafb;
-      border-radius: 10px;
-      padding: 10px 14px;
-      margin-top: 10px;
-    }
-
-    details summary {
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .qr {
-      text-align: center;
-      padding: 24px;
-    }
-
-    .qr img {
-      width: 140px;
-      height: 140px;
-      border-radius: 12px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-    }
-
-    footer {
-      background: white;
-      border-top: 1px solid #e5e7eb;
-      text-align: center;
-      padding: 16px;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    footer img {
-      height: 38px;
-      margin: 6px;
-      border-radius: 6px;
-    }
-
-    @media (max-width:640px) {
-      header img { width: 56px; height: 56px; }
-      .screenshots img { height: 400px; }
-    }
+    /* subtle reveal animation when element in view */
+    .reveal{opacity:0;transform:translateY(10px);transition:opacity .6s ease, transform .6s ease}
+    .reveal.visible{opacity:1;transform:none}
   </style>
 </head>
 <body>
+  <div class="page" id="page">
 
-<header>
-  <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/logo.png" alt="BondhuGo Logo">
-  <div class="app-meta">
-    <h1>BondhuGo</h1>
-    <p>BondhuGo Team · Social</p>
-    <p style="font-size:0.85rem; color:#0b69ff;">Contains ads · In-app purchases</p>
+    <!-- HEADER / APP ROW -->
+    <header class="app-header reveal">
+      <div class="app-icon" aria-hidden="true">
+        <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/logo.png" alt="BondhuGo logo">
+      </div>
+
+      <div class="meta" style="min-width:0">
+        <div class="app-title">BondhuGo</div>
+        <div class="app-sub">BondhuGo Team · Social</div>
+
+        <div class="rating-row" aria-hidden="true">
+          <div class="stars">★ 4.7</div>
+          <div style="color:var(--muted);font-size:0.9rem">· 2,4K reviews</div>
+        </div>
+
+        <div class="micro">
+          <div>Free</div>
+          <div>· 5 MB</div>
+          <div>· 10K+ installs</div>
+        </div>
+      </div>
+
+      <div class="install-col">
+        <button class="install-btn" id="installBtn">Install</button>
+        <a href="https://indusapp.store/pu5du5h7" target="_blank" style="text-decoration:none">
+          <img src="https://docstore.indusappstore.com/public/external/developerdashboard-static/badge-black-background-english.png"
+               alt="Indus badge" style="height:36px;border-radius:8px;margin-top:6px;box-shadow:0 6px 18px rgba(0,0,0,0.08)">
+        </a>
+      </div>
+    </header>
+
+    <!-- CAROUSEL -->
+    <div class="carousel-wrap reveal" id="screensWrap">
+      <div class="carousel" id="carousel" role="list">
+        <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen1.png" alt="Screen 1">
+        <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen2.png" alt="Screen 2">
+        <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen3.png" alt="Screen 3">
+        <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen4.png" alt="Screen 4">
+        <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen5.png" alt="Screen 5">
+        <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen6.png" alt="Screen 6">
+        <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen7.png" alt="Screen 7">
+        <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen8.png" alt="Screen 8">
+        <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen9.png" alt="Screen 9">
+        <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen10.png" alt="Screen 10">
+      </div>
+    </div>
+
+    <!-- SECTIONS -->
+    <div class="sections">
+      <section class="card reveal" id="about">
+        <h2>About this app</h2>
+        <p>BondhuGo helps you find, share, and belong — connect with friends and communities that share your passions. Lightweight, private-by-design, and built for people-first conversations.</p>
+      </section>
+
+      <section class="card reveal">
+        <h2>What's new</h2>
+        <p>• Performance improvements and bug fixes.<br>• Faster feed loading and improved search.</p>
+      </section>
+
+      <section class="card reveal">
+        <h2>Data safety</h2>
+        <details>
+          <summary>Data collected</summary>
+          <p>Profile info, posts and usage data (for crash and performance reporting) — stored securely on Google Cloud Firestore.</p>
+        </details>
+        <details>
+          <summary>Data shared</summary>
+          <p>We do not sell user data. Google Sign-In provides authentication; we only use that info to create your account.</p>
+        </details>
+      </section>
+
+      <section class="card reveal">
+        <h2>Contact developer</h2>
+        <p>Email: <a href="mailto:bondhugo.in@gmail.com">bondhugo.in@gmail.com</a></p>
+        <p style="margin-top:6px">Privacy Policy: <a href="https://realshibsankarsarkar.github.io/bondhugo-privacy-policy/" target="_blank">View Policy</a></p>
+
+        <div class="badge-qr" style="margin-top:12px">
+          <a href="https://indusapp.store/pu5du5h7" target="_blank" aria-label="Indus Appstore">
+            <img class="badge" src="https://docstore.indusappstore.com/public/external/developerdashboard-static/badge-black-background-english.png" alt="Indus Appstore badge">
+          </a>
+
+          <a href="https://github.com/RealShibSankarSarkar/bondhugo/releases/download/v1.0.0/app-release.apk" target="_blank" aria-label="Download APK">
+            <img class="qr" src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/qr.png" alt="Download QR code">
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <footer class="reveal" style="margin-top:16px">
+      © BondhuGo — All rights reserved. Version: Beta
+      <div style="margin-top:10px">
+        <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/download-apk-badge.png" alt="Download APK" style="height:36px;border-radius:6px;box-shadow:var(--shadow-sm)">
+      </div>
+    </footer>
   </div>
-  <button class="install-btn" onclick="window.open('https://github.com/RealShibSankarSarkar/bondhugo/releases/download/v1.0.0/app-release.apk','_blank')">
-    Install
-  </button>
-</header>
 
-<section class="screenshots">
-  <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen1.png" alt="Screenshot 1">
-  <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen2.png" alt="Screenshot 2">
-  <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen3.png" alt="Screenshot 3">
-  <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen4.png" alt="Screenshot 4">
-  <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen5.png" alt="Screenshot 5">
-  <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen6.png" alt="Screenshot 6">
-  <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen7.png" alt="Screenshot 7">
-  <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen8.png" alt="Screenshot 8">
-  <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen9.png" alt="Screenshot 9">
-  <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen10.png" alt="Screenshot 10">
-</section>
+  <script>
+    // Simple reveal on scroll
+    (function(){
+      const reveals = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting) e.target.classList.add('visible');
+        });
+      }, {threshold:0.12});
+      reveals.forEach(r=>io.observe(r));
+    })();
 
-<section>
-  <h2>About this app</h2>
-  <p>BondhuGo helps you connect with friends and communities that share your passions. Lightweight, private-first, and built with care. Explore new ideas, share posts, and grow together.</p>
-  <details>
-    <summary>What's new</summary>
-    <p>- Improved feed loading speed<br>- Bug fixes and performance updates</p>
-  </details>
-</section>
+    // Install button action (download APK)
+    document.getElementById('installBtn').addEventListener('click', ()=>{
+      window.open('https://github.com/RealShibSankarSarkar/bondhugo/releases/download/v1.0.0/app-release.apk','_blank');
+    });
 
-<section>
-  <h2>Data safety</h2>
-  <p>Safety starts with understanding how developers collect and share your data.</p>
-  <details>
-    <summary>Data shared</summary>
-    <p>No personal data is shared with third parties. Sign-in data is used only for authentication.</p>
-  </details>
-  <details>
-    <summary>Data collected</summary>
-    <p>Profile info (name, username, bio) and posts are securely stored in Google Cloud Firestore.</p>
-  </details>
-</section>
-
-<section>
-  <h2>Contact developer</h2>
-  <p>Email: <a href="mailto:bondhugo.in@gmail.com">bondhugo.in@gmail.com</a></p>
-  <p>Privacy Policy: <a href="https://realshibsankarsarkar.github.io/bondhugo-privacy-policy/" target="_blank">View Policy</a></p>
-</section>
-
-<section class="qr">
-  <h2>Also available on</h2>
-  <a href="https://indusapp.store/pu5du5h7" target="_blank">
-    <img src="https://docstore.indusappstore.com/public/external/developerdashboard-static/badge-black-background-english.png" alt="Indus Appstore">
-  </a>
-  <div style="margin-top:20px;">
-    <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/qr.png" alt="BondhuGo QR">
-  </div>
-</section>
-
-<footer>
-  <div>© BondhuGo — All rights reserved. Version: Beta</div>
-  <div>
-    <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/download-apk-badge.png" alt="Download APK">
-  </div>
-</footer>
-
+    // Optional: make carousel scroll nicer with small snap to center on drag end
+    (function(){
+      const carousel = document.getElementById('carousel');
+      if(!carousel) return;
+      let isDown=false,startX,scrollLeft;
+      carousel.addEventListener('pointerdown', (e)=>{
+        isDown=true; carousel.setPointerCapture(e.pointerId);
+        startX = e.clientX; scrollLeft = carousel.scrollLeft;
+      });
+      carousel.addEventListener('pointermove', (e)=>{
+        if(!isDown) return;
+        const x = e.clientX;
+        const walk = (startX - x);
+        carousel.scrollLeft = scrollLeft + walk;
+      });
+      ['pointerup','pointercancel','pointerleave'].forEach(ev=>{
+        carousel.addEventListener(ev, (e)=>{ isDown=false; try{carousel.releasePointerCapture(e.pointerId)}catch(_){}} );
+      });
+    })();
+  </script>
 </body>
 </html>
