@@ -1,199 +1,293 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BondhuGo — Connect with friends</title>
   <meta name="description" content="BondhuGo — A human-first social app to connect with friends and communities." />
-  <meta property="og:title" content="BondhuGo — Connect with friends" />
-  <meta property="og:description" content="BondhuGo — A human-first social app to connect with friends and communities." />
-  <meta property="og:type" content="website" />
   <meta name="theme-color" content="#0b69ff" />
   <link rel="icon" href="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/logo.png">
+
   <style>
     :root {
-      --bg:#0f172a;
-      --card:#ffffff;
-      --accent:#0b69ff;
-      --muted:#6b7280;
-      --container:1100px;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      --accent: #0b69ff;
+      --text: #0f172a;
+      --muted: #6b7280;
+      --card: rgba(255,255,255,0.65);
+      --blur: 14px;
+      --radius: 16px;
+      --transition: all 0.4s ease;
+      font-family: "Inter", "Segoe UI", Roboto, system-ui;
     }
-    *{box-sizing:border-box;margin:0;padding:0}
+
+    /* Smooth gradient animated background */
     body {
-      background: linear-gradient(180deg,#f7f8fa 0%, #eef2ff 100%);
-      color:#0f172a;
-      line-height:1.5;
-      -webkit-font-smoothing:antialiased;
+      margin: 0;
+      background: linear-gradient(-45deg, #e0e7ff, #f9fafb, #c7d2fe, #dbeafe);
+      background-size: 400% 400%;
+      animation: gradient 18s ease infinite;
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      transition: var(--transition);
     }
-    .wrap {max-width:var(--container);margin:0 auto;padding:28px;}
-    header {display:flex;align-items:center;justify-content:space-between;padding:6px 0;}
-    .brand {display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;}
-    .logo img {width:44px;height:44px;border-radius:10px;object-fit:cover;}
-    nav a {margin-left:18px;text-decoration:none;color:var(--muted);font-weight:600;}
-    nav a:hover {color:var(--accent);}
-    .hero {display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:center;margin-top:28px;}
-    .hero .kicker {display:inline-block;background:#eef2ff;color:var(--accent);padding:6px 10px;border-radius:999px;font-weight:700;margin-bottom:14px;}
-    h1 {font-size:2.1rem;margin:0 0 12px;}
-    p.lead {color:#334155;margin:0 0 20px;font-size:1rem;}
-    .cta-row {display:flex;gap:12px;flex-wrap:wrap;}
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(var(--blur));
+      background: rgba(255,255,255,0.4);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 6%;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+    }
+
+    nav a {
+      margin-left: 18px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    nav a:hover { color: var(--accent); }
+
+    /* Hero Section */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 40px;
+      align-items: center;
+      padding: 60px 6%;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn { from {opacity:0; transform: translateY(10px);} to {opacity:1; transform: translateY(0);} }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.1rem;
+      margin-bottom: 28px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
     .btn {
-      display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;font-weight:700;
-      border:none;cursor:pointer;text-decoration:none;
-      box-shadow:0 6px 18px rgba(15,23,42,0.06);
-      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 20px;
+      border-radius: var(--radius);
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
     }
-    .btn:hover {transform:translateY(-2px);}
-    .btn-primary {background:var(--accent);color:white;}
-    .btn-ghost {background:transparent;border:2px solid rgba(15,23,42,0.06);color:#0f172a;}
-    .device-card {
-      background:var(--card);padding:18px;border-radius:14px;
-      box-shadow:0 8px 30px rgba(16,24,40,0.06);
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 4px 16px rgba(11,105,255,0.3);
     }
-    .screenshots {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
-      gap:14px;
-      margin-top:18px;
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 22px rgba(11,105,255,0.4);
     }
-    .screenshots img {
-      width:100%;
-      border-radius:12px;
-      box-shadow:0 4px 14px rgba(0,0,0,0.08);
-      transition:transform .2s ease, box-shadow .2s ease;
+
+    .btn-outline {
+      background: rgba(255,255,255,0.7);
+      border: 2px solid rgba(0,0,0,0.05);
+      color: var(--text);
     }
-    .screenshots img:hover {
-      transform:scale(1.04);
-      box-shadow:0 8px 20px rgba(0,0,0,0.12);
+
+    /* Glass card */
+    .card {
+      background: var(--card);
+      backdrop-filter: blur(var(--blur));
+      border-radius: var(--radius);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      padding: 20px;
+      transition: var(--transition);
     }
-    .features {
-      display:grid;grid-template-columns:repeat(3,1fr);
-      gap:16px;margin-top:28px;
+
+    .card:hover { transform: scale(1.02); }
+
+    /* Screenshots carousel */
+    .screens {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      margin-top: 20px;
+      padding-bottom: 10px;
     }
-    .feature {
-      background:linear-gradient(180deg,#fff,#fbfdff);
-      padding:18px;border-radius:12px;
-      border:1px solid rgba(15,23,42,0.03);
+
+    .screens img {
+      width: 150px;
+      height: auto;
+      border-radius: 12px;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: var(--transition);
     }
-    .feature h4 {margin:8px 0 6px;}
-    .footer {
-      margin-top:38px;padding:18px;border-radius:12px;background:transparent;
-      display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;
+
+    .screens img:hover { transform: scale(1.05); }
+
+    /* QR Section */
+    .qr {
+      text-align: center;
+      margin: 60px 0;
     }
-    .small {font-size:0.92rem;color:var(--muted);}
-    .links a {margin-left:12px;color:var(--muted);text-decoration:none;font-weight:600;}
-    .links a:hover {color:var(--accent);}
-    @media (max-width:980px){
-      .hero{grid-template-columns:1fr}
-      .features{grid-template-columns:repeat(2,1fr)}
+    .qr img {
+      width: 140px;
+      height: 140px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
     }
-    @media (max-width:640px){
-      .features{grid-template-columns:1fr}
-      nav a{margin-left:10px;font-size:0.95rem}
-      h1{font-size:1.5rem}
+
+    /* Footer */
+    footer {
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(var(--blur));
+      padding: 20px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    footer a { color: var(--muted); text-decoration: none; margin-left: 12px; }
+    footer a:hover { color: var(--accent); }
+
+    @media(max-width:900px){
+      .hero { grid-template-columns: 1fr; text-align:center; }
+      .screens img { width: 120px; }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <a class="brand" href="#">
-        <div class="logo"><img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/logo.png" alt="BondhuGo logo"></div>
-        <div>
-          <div style="font-weight:800">BondhuGo</div>
-          <div style="font-size:12px;color:var(--muted);margin-top:2px">Human-first social</div>
-        </div>
-      </a>
 
-      <nav>
-        <a href="#features">Features</a>
-        <a href="#screens">Screens</a>
-        <a href="privacy-policy.html" target="_blank">Privacy</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </header>
+<header>
+  <a class="brand" href="#">
+    <div class="logo">
+      <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/logo.png" alt="BondhuGo Logo">
+    </div>
+    <strong>BondhuGo</strong>
+  </a>
+  <nav>
+    <a href="#features">Features</a>
+    <a href="#screens">Screens</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
 
-    <main class="hero">
-      <section>
-        <div class="kicker">New • Human-first</div>
-        <h1>Find, share, and belong — Bond with your people.</h1>
-        <p class="lead">BondhuGo helps you connect with friends and communities that share your passions. Lightweight, private-first, and built with care.</p>
-
-        <div class="cta-row">
-          <a class="btn btn-primary" href="https://github.com/RealShibSankarSarkar/bondhugo/releases/download/v1.0.0/app-release.apk" download>⤓ Download APK</a>
-          <a class="btn btn-ghost" href="https://indusapp.store/pu5du5h7">▶ Indus Appstore</a>
-          <a class="btn" href="privacy-policy.html" style="border:1px solid rgba(11,105,255,0.12);">📜 Privacy Policy</a>
-        </div>
-
-        <div style="margin-top:18px;" class="small">Trusted by early users — private by design.</div>
-      </section>
-
-      <aside class="device-card" id="screens">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-          <strong>App preview</strong>
-          <small style="color:var(--muted)">Beta</small>
-        </div>
-
-        <div class="screenshots">
-          <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen1.png" alt="Screen 1">
-          <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen2.png" alt="Screen 2">
-          <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen3.png" alt="Screen 3">
-          <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen4.png" alt="Screen 4">
-          <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen5.png" alt="Screen 5">
-          <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen6.png" alt="Screen 6">
-          <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen7.png" alt="Screen 7">
-          <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen8.png" alt="Screen 8">
-          <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen9.png" alt="Screen 9">
-          <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen10.png" alt="Screen 10">
-        </div>
-      </aside>
-    </main>
-
-    <section id="features" style="margin-top:26px">
-      <h3 style="margin:0 0 12px">Features</h3>
-      <div class="features">
-        <div class="feature"><div style="font-size:20px">🔒 Privacy-first</div><h4>Control your data</h4><p class="small">Only you can edit/delete your profile and posts.</p></div>
-        <div class="feature"><div style="font-size:20px">⚡ Fast & Lightweight</div><h4>Built for speed</h4><p class="small">Optimized for mobile with fast load times.</p></div>
-        <div class="feature"><div style="font-size:20px">🤝 Communities</div><h4>Join topics you love</h4><p class="small">Follow interests and discover new friends.</p></div>
-        <div class="feature"><div style="font-size:20px">🔐 Secure Sign-in</div><h4>Google Sign-In</h4><p class="small">Simple, safe authentication option.</p></div>
-        <div class="feature"><div style="font-size:20px">🛠 Developer Friendly</div><h4>Open setup</h4><p class="small">Firestore rules are easy to customize.</p></div>
-        <div class="feature"><div style="font-size:20px">📣 Notifications</div><h4>Engage with friends</h4><p class="small">Get notified about replies and mentions.</p></div>
-      </div>
-    </section>
-
-    <section id="qr" style="margin-top:40px;text-align:center;">
-      <h3>Scan & Download</h3>
-      <p class="small">Scan this QR to download BondhuGo instantly</p>
-      <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/qr.png" alt="BondhuGo QR Code" style="width:140px;height:140px;margin-top:12px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-    </section>
-
-    <section id="contact" style="margin-top:30px;display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap">
-      <div>
-        <h3 style="margin:0 0 8px">Get in touch</h3>
-        <p class="small" style="margin:0 0 6px">Questions, bug reports or partnership? We'd love to hear from you.</p>
-        <p style="margin:0;font-weight:700"><a href="mailto:bondhugo.in@gmail.com">bondhugo.in@gmail.com</a></p>
-      </div>
-
-      <div style="text-align:right">
-        <p class="small" style="margin:0">Available on</p>
-        <div style="margin-top:8px;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;">
-          <a href="https://indusapp.store/pu5du5h7">
-            <img alt="Get it on Indus Appstore" src="https://docstore.indusappstore.com/public/external/developerdashboard-static/badge-black-background-english.png" style="height:42px;">
-          </a>
-          <a href="https://github.com/RealShibSankarSarkar/bondhugo/releases/download/v1.0.0/app-release.apk" download>
-            <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/download-apk-badge.png" alt="Download APK" style="height:42px;">
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="small">© BondhuGo — All rights reserved. <span style="margin-left:8px;color:var(--muted)">Version: Beta</span></div>
-      <div class="links">
-        <a href="privacy-policy.html">Privacy Policy</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </footer>
+<section class="hero">
+  <div>
+    <h1>Find, share, and belong — bond with your people.</h1>
+    <p class="lead">A human-first social app designed for real connections, privacy, and community.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/RealShibSankarSarkar/bondhugo/releases/download/v1.0.0/app-release.apk" download>⤓ Download APK</a>
+      <a class="btn btn-outline" href="https://indusapp.store/pu5du5h7">▶ Indus Appstore</a>
+    </div>
   </div>
+
+  <div class="card">
+    <h3 style="margin-top:0;">App Preview</h3>
+    <div class="screens" id="screens">
+      <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen1.png" alt="Screen 1">
+      <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen2.png" alt="Screen 2">
+      <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen3.png" alt="Screen 3">
+      <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen4.png" alt="Screen 4">
+      <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen5.png" alt="Screen 5">
+      <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen6.png" alt="Screen 6">
+      <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen7.png" alt="Screen 7">
+      <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen8.png" alt="Screen 8">
+      <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen9.png" alt="Screen 9">
+      <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/screen10.png" alt="Screen 10">
+    </div>
+  </div>
+</section>
+
+<section class="qr">
+  <h2>Scan & Download</h2>
+  <p style="color:var(--muted);">Quickly get the app by scanning this QR code</p>
+  <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/qr.png" alt="BondhuGo QR">
+</section>
+
+<footer>
+  <div>
+    © BondhuGo — All rights reserved. <span style="margin-left:8px;">Beta Version</span>
+  </div>
+  <div>
+    <a href="https://indusapp.store/pu5du5h7">
+      <img alt="Get it on Indus Appstore"
+        src="https://docstore.indusappstore.com/public/external/developerdashboard-static/badge-black-background-english.png"
+        style="height:38px;vertical-align:middle;">
+    </a>
+    <a href="https://github.com/RealShibSankarSarkar/bondhugo/releases/download/v1.0.0/app-release.apk" download>
+      <img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/download-apk-badge.png"
+        alt="Download APK" style="height:38px;vertical-align:middle;margin-left:6px;">
+    </a>
+  </div>
+</footer>
+
+<script>
+  // Simple fade-in animation on scroll
+  const revealElements = document.querySelectorAll('.card, .qr');
+  const revealOnScroll = () => {
+    const triggerBottom = window.innerHeight * 0.85;
+    revealElements.forEach(el => {
+      const boxTop = el.getBoundingClientRect().top;
+      if (boxTop < triggerBottom) el.style.opacity = 1;
+    });
+  };
+  window.addEventListener('scroll', revealOnScroll);
+  revealOnScroll();
+</script>
+
 </body>
 </html>
