@@ -8,17 +8,18 @@
   <meta name="theme-color" content="#0b69ff" />
 
   <style>
-    /* ---------- THEME & BASE ---------- */
+    /* ---------- THEME & BASE (Improved for Premium Look) ---------- */
     :root{
       --accent:#0b69ff;   /* primary blue */
-      --bg:#f7f9fc;
+      --bg:#f5f7fa; /* Slightly lighter, modern background */
       --card:#ffffff;
       --muted:#6b7280;
       --text:#0b1727;
-      --radius:16px;
-      --shadow-sm: 0 8px 24px rgba(15,23,42,0.06);
-      --shadow-lg: 0 18px 48px rgba(2,6,23,0.12);
-      --maxw:980px;
+      --radius:20px; /* Increased radius for softer look */
+      /* Softer, multi-layered shadows for a 'lifted' feel */
+      --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.04), 0 10px 20px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 15px 40px rgba(2,6,23,0.1), 0 5px 15px rgba(2,6,23,0.06);
+      --maxw:1024px; /* Slightly wider wrapper */
       font-family: "Google Sans", "Inter", "Roboto", system-ui, -apple-system, sans-serif;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
@@ -27,143 +28,156 @@
     /* Dark mode (keeps look consistent on phones that prefer dark) */
     @media (prefers-color-scheme: dark){
       :root{
-        --bg: #061323;
-        --card: rgba(8,12,18,0.6);
+        --bg: #0d1117; /* Darker, modern background */
+        --card: #161b22; /* Subtly dark card */
         --muted: #9aa6bf;
         --text: #e8f0ff;
-        --shadow-sm: 0 8px 24px rgba(0,0,0,0.6);
-        --shadow-lg: 0 18px 48px rgba(0,0,0,0.6);
+        --shadow-sm: 0 4px 10px rgba(0,0,0,0.4), 0 10px 20px rgba(0,0,0,0.35);
+        --shadow-lg: 0 15px 40px rgba(0,0,0,0.3), 0 5px 15px rgba(0,0,0,0.2);
       }
       body { background: var(--bg); color: var(--text); }
     }
 
     html,body{height:100%;margin:0;padding:0;background:var(--bg);color:var(--text)}
-    .wrap{max-width:var(--maxw);margin:18px auto;padding:0 16px;}
-    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--maxw);margin:24px auto;padding:0 20px;}
+    a{color:var(--accent);text-decoration:none} /* Links use accent color */
 
     /* ---------- HEADER (Play-like card) ---------- */
     .app-card{
       background:var(--card);
-      border-radius:18px;
-      padding:18px;
+      border-radius:var(--radius);
+      padding:24px;
       box-shadow:var(--shadow-sm);
       display:flex;
-      gap:16px;
+      gap:20px;
       align-items:center;
       position:relative;
       overflow:visible;
+      transition: box-shadow 0.3s ease;
     }
+    /* Icon treatment: More prominent shadow and gradient */
     .app-icon{
-      width:80px;height:80px;border-radius:20px;flex:0 0 80px;overflow:hidden;
+      width:96px;height:96px;border-radius:24px;flex:0 0 96px;overflow:hidden;
       box-shadow:var(--shadow-lg);
-      background:linear-gradient(135deg,#fff,#f3f7ff);
+      background:linear-gradient(135deg,#e0e5ee,#ffffff);
     }
     .app-icon img{width:100%;height:100%;object-fit:cover;display:block}
 
     .meta{
       flex:1;min-width:0;
     }
-    .app-title{font-size:1.35rem;font-weight:700;margin:0}
-    .app-sub{color:var(--muted);margin-top:6px;font-size:0.95rem}
-    .meta-row{display:flex;gap:12px;align-items:center;margin-top:10px;flex-wrap:wrap}
-    .badge-pill{background:rgba(11,105,255,0.08);color:var(--accent);padding:6px 10px;border-radius:999px;font-weight:600;font-size:0.88rem}
+    .app-title{font-size:1.6rem;font-weight:800;margin:0;line-height:1.2} /* Bolder title */
+    .app-sub{color:var(--muted);margin-top:8px;font-size:1rem}
+    .meta-row{display:flex;gap:12px;align-items:center;margin-top:12px;flex-wrap:wrap}
+    .badge-pill{background:rgba(11,105,255,0.08);color:var(--accent);padding:6px 12px;border-radius:999px;font-weight:600;font-size:0.9rem}
 
     /* rating & micro info */
-    .rating{display:flex;align-items:center;gap:10px;margin-top:8px}
-    .stars{color:var(--accent);font-weight:800;font-size:1rem}
-    .micro{color:var(--muted);font-size:0.9rem;display:flex;gap:14px;align-items:center}
+    .rating{display:flex;align-items:center;gap:12px;margin-top:10px}
+    .stars{color:var(--accent);font-weight:800;font-size:1.1rem}
+    .micro{color:var(--muted);font-size:0.95rem;display:flex;gap:16px;align-items:center}
 
     /* install column */
     .install-col{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
     .install-btn{
-      background:linear-gradient(180deg,var(--accent),#0680ff);
-      color:white;padding:10px 18px;border-radius:12px;border:none;font-weight:800;
-      cursor:pointer;box-shadow:0 10px 30px rgba(11,105,255,0.22);
-      transition:transform .12s ease,box-shadow .12s ease;
+      /* Premium Gradient and Shadow */
+      background:linear-gradient(135deg, #0f75ff 0%, #005ce6 100%);
+      color:white;padding:12px 28px;border-radius:14px;border:none;font-weight:700;
+      cursor:pointer;box-shadow:0 12px 30px rgba(11,105,255,0.3);
+      transition:all .2s ease-in-out;
+      font-size:1.05rem;
     }
-    .install-btn:active{transform:translateY(1px)}
-    .install-small{font-size:0.82rem;color:var(--muted)}
+    .install-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 18px 40px rgba(11,105,255,0.4);
+    }
+    .install-btn:active{transform:translateY(1px);box-shadow:0 8px 20px rgba(11,105,255,0.2);}
+    .install-small{font-size:0.85rem;color:var(--muted)}
 
     /* ---------- CAROUSEL (screenshots) ---------- */
     .carousel-wrap{
-      margin-top:18px;
-      border-radius:20px;
-      padding:14px;
-      background:linear-gradient(180deg, rgba(255,255,255,1), rgba(255,255,255,0.98));
+      margin-top:24px;
+      border-radius:var(--radius);
+      padding:16px;
+      background:var(--card); /* Simpler, cleaner card background */
       box-shadow:var(--shadow-sm);
       overflow:hidden;
     }
     .carousel{
       display:flex;
-      gap:14px;
+      gap:16px;
       overflow-x:auto;
       padding-bottom:12px;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling:touch;
     }
     .carousel img{
-      height:470px;
-      border-radius:22px;
+      height:500px; /* Slightly taller screenshots */
+      border-radius:24px;
       flex-shrink:0;
       scroll-snap-align:start;
       object-fit:cover;
-      box-shadow:0 14px 36px rgba(2,6,23,0.06);
-      transition:transform .18s ease;
-      border:1px solid rgba(0,0,0,0.03);
+      box-shadow:var(--shadow-sm); /* Using soft shadow */
+      transition:transform .2s ease;
+      border:1px solid rgba(0,0,0,0.05);
     }
-    .carousel img:hover{transform:scale(1.02)}
-    @media(max-width:720px){ .carousel img{height:400px} }
-    @media(max-width:420px){ .carousel img{height:320px;border-radius:18px} }
+    .carousel img:hover{transform:scale(1.01)}
+    @media(max-width:720px){ .carousel img{height:420px} }
+    @media(max-width:420px){ .carousel img{height:340px;border-radius:20px} }
 
     /* ---------- SECTIONS (About, What's new, Data safety) ---------- */
-    .sections{display:grid;gap:14px;margin-top:18px}
+    .sections{display:grid;gap:18px;margin-top:24px}
     section.card{
       background:var(--card);
-      border-radius:16px;
-      padding:16px;
+      border-radius:var(--radius);
+      padding:20px;
       box-shadow:var(--shadow-sm);
       border:1px solid rgba(0,0,0,0.03);
     }
-    section.card h2{margin:0 0 8px 0;font-size:1.05rem}
-    section.card p{margin:0;color:var(--muted);line-height:1.6}
+    section.card h2{margin:0 0 10px 0;font-size:1.2rem;font-weight:700} /* Bolder headings */
+    section.card p{margin:0;color:var(--muted);line-height:1.7}
 
-    details{background:transparent;margin-top:8px}
-    details summary{font-weight:700;cursor:pointer;color:var(--text)}
+    details{background:transparent;margin-top:10px}
+    details summary{font-weight:700;cursor:pointer;color:var(--text);padding:4px 0}
+    details summary:hover{color:var(--accent)}
 
     /* ---------- BADGE + QR ROW ---------- */
     .badge-qr{
       display:flex;
-      gap:18px;
+      gap:24px;
       align-items:center;
       justify-content:center;
-      margin-top:12px;
+      margin-top:20px;
       flex-wrap:wrap;
     }
+    .badge-qr a{transition: transform 0.2s ease;}
+    .badge-qr a:hover{transform: translateY(-2px);}
     .badge-qr img.badge{
-      height:56px;border-radius:10px;box-shadow:0 8px 26px rgba(2,6,23,0.08);
+      height:60px;border-radius:12px;box-shadow:0 8px 26px rgba(2,6,23,0.1);
       background:#000;padding:8px;
     }
     .badge-qr img.qr{
-      width:140px;height:140px;border-radius:14px;box-shadow:0 8px 24px rgba(2,6,23,0.06);
-      background:white;padding:8px;
+      width:150px;height:150px;border-radius:16px;box-shadow:var(--shadow-sm);
+      background:white;padding:10px;
     }
 
     /* footer */
-    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:0.9rem;padding-bottom:30px}
+    footer{margin-top:24px;text-align:center;color:var(--muted);font-size:0.95rem;padding-bottom:40px}
 
     /* reveal animations */
-    .reveal{opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease}
+    .reveal{opacity:0;transform:translateY(15px);transition:opacity .7s ease,transform .7s ease}
     .reveal.visible{opacity:1;transform:none}
 
     /* small screens adjustments */
     @media (max-width:880px){
-      .app-card{flex-direction:row;gap:12px;padding:14px}
+      .app-card{padding:20px;gap:16px}
+      .app-icon{width:80px;height:80px;border-radius:20px;flex:0 0 80px;}
       .install-col{align-items:flex-end}
     }
     @media (max-width:560px){
-      .app-card{flex-direction:column;align-items:flex-start;padding:14px;gap:12px}
+      .app-card{flex-direction:column;align-items:flex-start;padding:16px;gap:16px}
       .install-col{width:100%;display:flex;flex-direction:row;justify-content:space-between;align-items:center}
-      .install-btn{width:48%}
+      .install-btn{width:48%;padding:10px 18px;}
+      .app-title{font-size:1.4rem;}
     }
   </style>
 </head>
@@ -192,7 +206,7 @@
       </div>
 
       <div class="install-col" role="region" aria-label="Install">
-        <button id="installBtn" class="install-btn">Install</button>
+        <button id="installBtn" class="install-btn">Install Now</button>
         <div class="install-small">Secure • Fast</div>
       </div>
     </div>
@@ -254,9 +268,9 @@
       </section>
     </div>
 
-    <footer class="reveal" style="margin-top:18px">
+    <footer class="reveal" style="margin-top:24px">
       © BondhuGo — All rights reserved. Version: Beta
-      <div style="margin-top:10px"><img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/download-apk-badge.png" alt="Download APK" style="height:36px;border-radius:6px;box-shadow:var(--shadow-sm)"></div>
+      <div style="margin-top:10px"><img src="https://raw.githubusercontent.com/RealShibSankarSarkar/bondhugo/main/download-apk-badge.png" alt="Download APK" style="height:38px;border-radius:6px;box-shadow:var(--shadow-sm)"></div>
     </footer>
   </div>
 
@@ -268,7 +282,7 @@
         entries.forEach(e=>{
           if(e.isIntersecting) e.target.classList.add('visible');
         });
-      }, {threshold:0.12});
+      }, {threshold:0.1}); // Slightly lower threshold for faster appearance
       items.forEach(i=>io.observe(i));
     })();
 
@@ -305,4 +319,3 @@
   </script>
 </body>
 </html>
-
